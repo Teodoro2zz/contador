@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Surpresa Sombria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at center, #000 0%, #1a001a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', Arial, sans-serif;
+      overflow: hidden;
+      transition: background 1s;
+    }
+    .suspense-light {
+      position: fixed;
+      top: 50%; left: 50%;
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, #fff1 0%, #000 80%);
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+      animation: suspenseLight 2s infinite alternate;
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+    @keyframes suspenseLight {
+      from { opacity: 0.5; }
+      to { opacity: 0.9; }
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 1;
+      pointer-events: none;
+      animation: overlayPulse 3s infinite alternate;
+    }
+    @keyframes overlayPulse {
+      from { background: rgba(0,0,0,0.85);}
+      to { background: rgba(30,0,40,0.93);}
+    }
+    .card {
+      position: relative;
+      z-index: 2;
+      background: rgba(20, 0, 30, 0.97);
+      border-radius: 18px;
+      box-shadow: 0 0 60px #000, 0 0 24px #d7266080;
+      padding: 40px 30px 30px 30px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      border: 2.5px solid #d72660;
+      animation: suspenseIn 2s;
+      backdrop-filter: blur(1.5px);
+    }
+    @keyframes suspenseIn {
+      from { opacity: 0; transform: scale(1.1);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    #mensagem {
+      font-size: 1.25em;
+      color: #fff;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+      animation: suspenseText 2s;
+      text-shadow: 0 0 12px #d72660a0, 0 0 2px #000;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    @keyframes suspenseText {
+      from { letter-spacing: 10px; opacity: 0; }
+      to { letter-spacing: 1px; opacity: 1; }
+    }
+    h1 {
+      font-size: 1.1em;
+      color: #ff4fa3;
+      margin-bottom: 25px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #000, 0 0 16px #d72660;
+    }
+    #timer {
+      font-size: 2.5em;
+      color: #fff;
+      letter-spacing: 4px;
+      margin-bottom: 18px;
+      font-variant-numeric: tabular-nums;
+      background: rgba(215,38,96,0.10);
+      border-radius: 10px;
+      padding: 18px 0;
+      font-weight: bold;
+      box-shadow: 0 0 16px #d72660a0;
+      border: 2px solid #d72660;
+      text-shadow: 0 0 12px #d7266080, 0 0 24px #000;
+      transition: color 0.3s, box-shadow 0.3s;
+      letter-spacing: 6px;
+    }
+    .blink {
+      animation: blink 0.7s steps(2, start) infinite;
+      color: #d72660;
+      box-shadow: 0 0 32px #d72660, 0 0 8px #fff, 0 0 32px #ff4fa3;
+      background: #1a001a;
+      border-color: #ff4fa3;
+    }
+    @keyframes blink {
+      to { visibility: hidden; }
+    }
+    #final {
+      font-size: 1.7em;
+      color: #fff;
+      margin-top: 25px;
+      animation: suspenseReveal 2s, neon 1.5s infinite alternate;
+      display: none;
+      font-weight: bold;
+      text-shadow: 0 0 16px #d72660, 0 0 8px #fff, 0 0 32px #ff4fa3, 0 0 32px #000;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+    }
+    @keyframes suspenseReveal {
+      from { opacity: 0; transform: scale(1.2);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    @keyframes neon {
+      from { text-shadow: 0 0 16px #d72660, 0 0 8px #fff, 0 0 32px #ff4fa3, 0 0 32px #000; }
+      to { text-shadow: 0 0 32px #fff, 0 0 16px #d72660, 0 0 48px #ff4fa3, 0 0 48px #000; }
+    }
+    .heart {
+      color: #d72660;
+      font-size: 1.4em;
+      animation: pulse 1s infinite;
+      vertical-align: middle;
+      text-shadow: 0 0 8px #fff, 0 0 16px #d72660;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.3);}
+      100% { transform: scale(1);}
+    }
+    #surpresa-link {
+      margin-top: 22px;
+      font-size: 1.2em;
+      background: #d72660;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 12px #d72660a0, 0 0 24px #000;
+      transition: background 0.2s, opacity 0.2s, cursor 0.2s;
+      display: inline-block;
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+      border: 2px solid #ff4fa3;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #000;
+      filter: brightness(0.8);
+    }
+    #surpresa-link.enabled {
+      opacity: 1;
+      cursor: pointer;
+      pointer-events: auto;
+      animation: suspenseReveal 2s;
+      filter: brightness(1.1);
+    }
+    #surpresa-link:hover {
+      background: #a81e47;
+      filter: brightness(1.3);
+    }
+    /* Efeito de "sangue" escorrendo */
+    .blood {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 40px;
+      z-index: 3;
+      pointer-events: none;
+      background: url('https://svgshare.com/i/13wN.svg') no-repeat center/contain;
+      opacity: 0.7;
+      animation: bloodDrip 2.5s infinite alternate;
+    }
+    @keyframes bloodDrip {
+      0% { top: 0; opacity: 0.7;}
+      100% { top: 20px; opacity: 1;}
+    }
+    @media (max-width: 500px) {
+      .card { padding: 22px 5vw 18px 5vw; }
+      #timer { font-size: 1.3em; }
+      #final { font-size: 1.1em; }
+      .suspense-light { width: 300px; height: 300px; }
+      .blood { width: 70px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="suspense-light"></div>
+  <div class="overlay"></div>
+  <div class="card">
+    <div class="blood"></div>
+    <div id="mensagem">
+      Algo sombrio está prestes a acontecer... <span class="heart">🖤</span>
+    </div>
+    <h1>O mistério será revelado em:</h1>
+    <div id="timer"></div>
+    <div id="final">
+      Surpresa revelada! <span class="heart">🩸</span>
+    </div>
+    <!-- Botão bloqueado até o tempo acabar -->
+    <a id="surpresa-link" href="#" target="_blank">Clique para ver sua surpresa!</a>
+    <!-- Música de suspense/terror local -->
+    <audio id="bg-music" src="suspense.mp3" loop autoplay></audio>
+    <audio id="audio-final" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa1e3b.mp3"></audio>
+  </div>
+  <script>
+    // Troque a data para o futuro para testar!
+    const targetDate = new Date("2025-06-12T00:00:00-03:00").getTime();
+    const timerEl = document.getElementById("timer");
+    const finalEl = document.getElementById("final");
+    const audioFinal = document.getElementById("audio-final");
+    const bgMusic = document.getElementById("bg-music");
+    const surpresaLink = document.getElementById("surpresa-link");
+    const linkSurpresa = "https://teodoro2zz.github.io/Amor/";
+
+    window.addEventListener('DOMContentLoaded', () => {
+      bgMusic.volume = 0.5;
+      bgMusic.play().catch(()=>{});
+    });
+
+    // Garante que o áudio toque após o primeiro clique (caso o navegador bloqueie)
+    window.addEventListener('click', () => {
+      bgMusic.play().catch(()=>{});
+    }, { once: true });
+
+    function pad(n) {
+      return n < 10 ? '0' + n : n;
+    }
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        timerEl.style.display = "none";
+        finalEl.style.display = "block";
+        bgMusic.pause();
+        audioFinal.play();
+        // Libera o botão/link
+        surpresaLink.classList.add("enabled");
+        surpresaLink.href = linkSurpresa;
+        surpresaLink.removeAttribute("tabindex");
+        surpresaLink.setAttribute("aria-disabled", "false");
+        clearInterval(interval);
+        document.body.style.background = "radial-gradient(ellipse at center, #2a0000 0%, #000 100%)";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      timerEl.innerHTML =
+        `<span>${pad(days)}d</span> <span>${pad(hours)}h</span> <span>${pad(minutes)}m</span> <span>${pad(seconds)}s</span>`;
+
+      // Piscar e efeito suspense nos últimos 10 segundos
+      if (distance < 11000) {
+        timerEl.classList.add("blink");
+        document.body.style.background = "radial-gradient(ellipse at center, #2a0000 0%, #000 100%)";
+      } else {
+        timerEl.classList.remove("blink");
+        document.body.style.background = "radial-gradient(ellipse at center, #000 0%, #1a001a 100%)";
+      }
+    }
+
+    // Impede clique enquanto bloqueado
+    surpresaLink.addEventListener('click', function(e) {
+      if (!surpresaLink.classList.contains('enabled')) {
+        e.preventDefault();
+      }
+    });
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
